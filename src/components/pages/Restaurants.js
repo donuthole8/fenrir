@@ -1,10 +1,11 @@
 import React from 'react'
+import Header from '../modules/Header'
 
 function Restaurants() {
   return (
-    <div>
-      <h1>Restaurants</h1>
-    </div>
+    <>
+      <Header />
+    </>
   )
 }
 

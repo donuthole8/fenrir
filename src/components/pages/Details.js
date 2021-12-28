@@ -1,10 +1,12 @@
 import React from 'react'
+import Header from '../modules/Header'
+
 
 function Details() {
   return (
-    <div>
-      <h1>Details</h1>
-    </div>
+    <>
+      <Header />
+    </>
   )
 }
 
