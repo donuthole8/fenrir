@@ -1,8 +1,20 @@
 import React, { useState, useEffect, Component } from 'react'
 import { Link } from "react-router-dom";
+import Card from '@mui/material/Card';
+import Avatar from '@mui/material/Avatar';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import { makeStyles } from "@material-ui/core";
 
+
+const useStyles = makeStyles({
+  card: {
+    // textAlign: "center"
+  },
+});
 
 const ShopCard = (props) => {
+  const classes = useStyles();
 
   const To = {
     pathname: "/details",
@@ -14,16 +26,41 @@ const ShopCard = (props) => {
     }
   }
 
+  const getImg = () => {
+    let mainImg
+    try {
+      if (props.shop.photo.pc.l){
+        throw new Error('err')
+      }
+      mainImg = props.shop.photo.pc.l
+    } catch(e) {
+      mainImg = props.shop.logo_image
+    }
+
+    return mainImg
+  };
+
   return (
     <>
-      {/* これを複数【検索ヒット数分用意】 */}
-      <div className="restaurant">
-        <h2 className="shop-name">{ props.shop.name }</h2>
-        <p className="access">アクセス方法：{ props.shop.access }</p>
-        <img className="shop-image" src={ props.shop.logo_image } width="100"/>
-
-        <Link to={To}>詳細情報</Link>
-      </div>
+      <Link to={To}>
+        <Card sx={{ maxWidth: 300, height: 300, margin: 3 }}>
+          <CardHeader
+            title={ props.shop.name }
+            subheader={ props.shop.access }
+            avatar={
+              <Avatar aria-label="recipe">
+                <img src={ props.shop.logo_image } alt=""/>
+              </Avatar>
+            }
+          ></CardHeader>
+          <CardMedia sx={{ maring: 1, maxWidth: 250, textAlign: "center" }}
+            component="img"
+            // image={ getImg }
+            image={ props.shop.photo.pc.l }
+            // image={ props.shop.logo_image }
+          />
+        </Card>
+      </Link>
     </>
   )
 }
