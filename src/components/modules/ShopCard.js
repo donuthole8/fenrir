@@ -6,7 +6,12 @@ const ShopCard = (props) => {
 
   const To = {
     pathname: "/details",
-    state: props.shop
+    state: {
+      props: props.shop,
+      lat: props.lat,
+      lng: props.lng,
+      range: props.range
+    }
   }
 
   return (

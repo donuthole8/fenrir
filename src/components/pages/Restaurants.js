@@ -17,10 +17,9 @@ const Restaurants = () => {
   useEffect(() => {
     const f = async () => {
       // GETクエリに探索範囲追加
-      (await fetch(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=${lat}&lng=${lng}&range=${range}&format=json`)).json()
+      (await fetch(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=${lat}&lng=${lng}&range=5&count=100&format=json`)).json()
         .then(res => {
-          console.log(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=${lat}&lng=${lng}&range=${range}&format=json`)
-          console.log(res.results)
+          console.log(res)
           setShops(res.results.shop)
         })
         .then(data => {
@@ -64,7 +63,10 @@ const Restaurants = () => {
 
       { shops.map((shop) =>
         <ShopCard
-          shop = {shop}
+          shop = { shop }
+          lat = { lat }
+          lng = { lng }
+          range = { range }
         />
       )}
 
