@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Header from '../modules/Header'
 import Footer from '../modules/Footer'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
+
 
 const ErrorText = () => (
   <p className="App-error-text">geolocation IS NOT available</p>
@@ -9,8 +10,12 @@ const ErrorText = () => (
 
 function Home() {
   const [isAvailable, setAvailable] = useState(false);
-  const [position, setPosition] = useState({ latitude: null, longitude: null });
+  const [position, setPosition] = useState({
+    latitude: 35.669220,
+    longitude: 139.761457
+  });
   const isFirstRef = useRef(true);
+  const [selectedVal, setSelectedVal] = useState(0)
 
   useEffect(() => {
     isFirstRef.current = false;
@@ -25,6 +30,10 @@ function Home() {
       setPosition({ latitude, longitude });
     });
   };
+
+  const handleChange = (event) => {
+    setSelectedVal(event.target.value)
+  }
 
   if (isFirstRef.current) return <div className="App">Loading...</div>;
 
@@ -47,7 +56,6 @@ function Home() {
           )}
 
           <p>現在地：静岡県浜松市中区城北</p>
-          {/* 現在地：lat=34.7205309,lng=137.7218217 */}
         </div>
       </div>
 
@@ -58,7 +66,7 @@ function Home() {
               探索半径
             </label>
 
-            <select name="radius">
+            <select name="radius" onChange={ handleChange }>
             <option value="3">1000m以内</option>
             <option value="1">300m以内</option>
             <option value="2">500m以内</option>
@@ -70,9 +78,11 @@ function Home() {
 
               <Link to= {{
                 pathname: "/restaurants",
-                // state: position
-                // テスト用
-                state: { latitude: 34.7205309, longitude: 137.7218217 }
+                state: {
+                  latitude: position.latitude,
+                  longitude: position.longitude,
+                  radius: selectedVal
+                }
               }}>検索</Link>
             </div>
           </form>

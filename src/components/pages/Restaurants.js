@@ -10,16 +10,18 @@ const Restaurants = () => {
   const [shops, setShops] = useState([""])
   const { state } = useLocation();
   const lat = state.latitude
-  const lng = state.longitude;
+  const lng = state.longitude
+  const range = state.radius
+  const [radius, setRadius] = useState(range)
 
   useEffect(() => {
     const f = async () => {
       // GETクエリに探索範囲追加
-      (await fetch(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=${lat}&lng=${lng}&range=3&format=json`)).json()
+      (await fetch(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=${lat}&lng=${lng}&range=${range}&format=json`)).json()
         .then(res => {
+          console.log(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=${lat}&lng=${lng}&range=${range}&format=json`)
+          console.log(res.results)
           setShops(res.results.shop)
-          console.log(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=34.7205243&lng=137.7218242&range=3&format=json`)
-          console.log(res)
         })
         .then(data => {
 
@@ -27,6 +29,23 @@ const Restaurants = () => {
       }
       f()
   }, [])
+
+  const displayRadius = () => {
+    let radiusMeter = "0m"
+    if (radius === "1") {
+      radiusMeter = "300m"
+    } else if (radius === "2") {
+      radiusMeter = "500m"
+    } else if (radius === "3") {
+      radiusMeter = "1000m"
+    } else if (radius === "4") {
+      radiusMeter = "2000m"
+    } else if (radius === "5") {
+      radiusMeter = "3000m"
+    }
+
+    return radiusMeter
+  }
 
   return (
     <>
@@ -38,9 +57,8 @@ const Restaurants = () => {
 
       <div className="location-wrapper">
         <div>
-          <p>現在地： 東京都渋谷区</p>
-          <p>探索半径：〇〇m以内</p>
-          {/* Home.jsから受け取った現在地 */}
+          <p>現在地： 静岡県浜松市中区城北</p>
+          <p>探索半径：{ displayRadius() }以内</p>
         </div>
       </div>
 
