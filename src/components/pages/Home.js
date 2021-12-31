@@ -1,22 +1,57 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Header from '../modules/Header'
 import Footer from '../modules/Footer'
 import { Link } from "react-router-dom";
 
+const ErrorText = () => (
+  <p className="App-error-text">geolocation IS NOT available</p>
+);
+
 function Home() {
-  // const [radius, setRadius]
+  const [isAvailable, setAvailable] = useState(false);
+  const [position, setPosition] = useState({ latitude: null, longitude: null });
+  const isFirstRef = useRef(true);
+
+  useEffect(() => {
+    isFirstRef.current = false;
+    if ('geolocation' in navigator) {
+      setAvailable(true);
+    }
+  }, [isAvailable]);
+
+  const getCurrentPosition = () => {
+    console.log("--getCurrentP--")
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+      setPosition({ latitude, longitude });
+      console.log(position)
+    });
+  };
+
+  if (isFirstRef.current) return <div className="App">Loading...</div>;
+
   return (
     <>
       <Header />
 
       <div className="location-wrapper">
         <div>
-          <p>現在地： 東京都渋谷区</p>
-          {/* 👇Reactでの現在地取得サンプル👇 */}
-          {/* https://qiita.com/shinshin86/items/63142a4d4b498d562fba */}
+          {!isFirstRef && !isAvailable && <ErrorText />}
+          {isAvailable && (
+            <div>
+              <button onClick={getCurrentPosition}>現在地の取得</button>
+              <div>
+                経度: { position.latitude }
+                <br />
+                緯度: { position.longitude }
+              </div>
+            </div>
+          )}
 
+          <p>現在地： 静岡県浜松市中区城北</p>
           {/* テスト値：lat=35.669220,lng=139.761457 */}
-          {/* https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=35.669220&lng=139.761457 */}
+          {/* 現在地：lat=34.7205309,lng=137.7218217 */}
+          {/* https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=34.7205309&lng=137.7218217&format=json */}
         </div>
       </div>
 

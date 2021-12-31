@@ -3,22 +3,21 @@ import Header from '../modules/Header'
 import Footer from '../modules/Footer'
 import { Link } from "react-router-dom";
 import ShopCard from '../modules/ShopCard';
-import axios from 'axios';
 
 
-// function Restaurants() {
 const Restaurants = () => {
   const [shops, setShops] = useState([""])
 
   useEffect(() => {
     const f = async () => {
+      // GETクエリに探索範囲追加
       (await fetch('https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=35.669220&lng=139.761457&format=json')).json()
         .then(res => {
           console.log("res->", res.results.shop)
           setShops(res.results.shop)
         })
         .then(data => {
-          // console.log('data->', data)
+
         })
       }
       f()
@@ -27,13 +26,6 @@ const Restaurants = () => {
   return (
     <>
       <Header />
-
-      <div className="test">
-        ＊テスト＊
-        {/* { data } */}
-        { shops[0].name }
-        ＊テスト＊
-      </div>
 
       <div className="back-button">
         <Link to="/home">戻る</Link>

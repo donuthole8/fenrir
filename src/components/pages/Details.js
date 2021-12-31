@@ -2,11 +2,21 @@ import React, { useState, useEffect } from 'react'
 import Header from '../modules/Header'
 import Footer from '../modules/Footer'
 import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-function Details() {
+
+const Details = (props) => {
+  console.log(props)
+
   return (
     <>
       <Header />
+
+      <div>
+        <p>画面遷移先のページ</p>
+        <p> { props }</p>
+      </div>
 
       <div className="back-button">
         {/* 検索条件を保持したまま戻るようにしたい */}
