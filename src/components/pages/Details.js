@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
 import Header from '../modules/Header'
 import Footer from '../modules/Footer'
 import { Link } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 
-const Details = (props) => {
-  console.log(props)
+const Details = () => {
+  // console.log(props)
+
+  const { state } = useLocation();
+  console.log(state)
 
   return (
     <>
@@ -15,7 +16,6 @@ const Details = (props) => {
 
       <div>
         <p>画面遷移先のページ</p>
-        <p> { props }</p>
       </div>
 
       <div className="back-button">

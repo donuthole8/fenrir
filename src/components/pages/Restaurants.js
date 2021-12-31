@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Header from '../modules/Header'
 import Footer from '../modules/Footer'
 import { Link } from "react-router-dom";
-import ShopCard from '../modules/ShopCard';
+import  ShopCard  from '../modules/ShopCard';
 
 
 const Restaurants = () => {

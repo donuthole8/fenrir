@@ -2,23 +2,23 @@
 import React, { useState, useEffect, Component } from 'react'
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 
 
-export const ShopCard = (props) => {
+const ShopCard = (props) => {
+  let history = useHistory();
 
-  const [state, setState] = useState("")
+  // const handleClick = () => {
+  //   history.push({
+  //     pathname: "/details",
+  //     state: { text: setState("setState") }
+  //   });
+  // }
 
-  const handleChange = (e) => {
-    setState(() => "test")
-  }
-
-  const handleClick = () => {
-    props.history.push({
-      pathname: "/details",
-      state: { text: setState("setState") }
-    });
-  }
-
+const To = {
+  pathname: "/details",
+  state: "test!!!"
+}
 
   return (
     <>
@@ -29,25 +29,12 @@ export const ShopCard = (props) => {
         <img className="shop-image" src={ props.logo_image } width="100"/>
         {/* <Link to={{pathname: "/details",  name: "props"}} >詳細情報</Link> */}
 
-        <input type='text' value="test-val" onChange={handleChange}></input>
-        <button onClick={handleClick}>👉画面遷移👉</button>
-
-        {/* <Link to={To}>詳細情報</Link> */}
+        {/* <button onClick={handleClick}>👉画面遷移👉</button> */}
+        <Link to={To}>詳細情報</Link>
+        {/* <Link to="/details">詳細情報</Link> */}
       </div>
     </>
   )
 }
 
-// export default {
-//   ShopCard,
-//   withRouter(shopCard),
-// }
-export default withRouter(ShopCard)
-
-
-// export withRouter(shopCard);
-// export withRouter(shopCard);
-
-// export default ShopCard(
-//   withRouter(ShopCard),
-// )
+export default ShopCard;
