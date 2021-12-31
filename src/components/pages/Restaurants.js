@@ -2,19 +2,24 @@ import React, { useState, useEffect } from 'react'
 import Header from '../modules/Header'
 import Footer from '../modules/Footer'
 import { Link } from "react-router-dom";
-import  ShopCard  from '../modules/ShopCard';
+import  ShopCard from '../modules/ShopCard';
+import { useLocation } from 'react-router';
 
 
 const Restaurants = () => {
   const [shops, setShops] = useState([""])
+  const { state } = useLocation();
+  const lat = state.latitude
+  const lng = state.longitude;
 
   useEffect(() => {
     const f = async () => {
       // GETクエリに探索範囲追加
-      (await fetch('https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=35.669220&lng=139.761457&format=json')).json()
+      (await fetch(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=${lat}&lng=${lng}&range=3&format=json`)).json()
         .then(res => {
-          console.log("res->", res.results.shop)
           setShops(res.results.shop)
+          console.log(`https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=34.7205243&lng=137.7218242&range=3&format=json`)
+          console.log(res)
         })
         .then(data => {
 
@@ -41,9 +46,7 @@ const Restaurants = () => {
 
       { shops.map((shop) =>
         <ShopCard
-          name = { shop.name }
-          access = { shop.access }
-          logo_image = { shop.logo_image }
+          shop = {shop}
         />
       )}
 

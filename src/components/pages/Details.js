@@ -5,10 +5,8 @@ import { useLocation } from 'react-router';
 
 
 const Details = () => {
-  // console.log(props)
-
   const { state } = useLocation();
-  console.log(state)
+  // console.log(state)
 
   return (
     <>
@@ -24,16 +22,16 @@ const Details = () => {
       </div>
 
       <div className="shop-name">
-        <h3>店名</h3>
+        <h3>{ state.name }</h3>
       </div>
 
       <div className="shop-details-wrapper">
-        <img className="shop-image" src="https://ximg.retty.me/resize/s880x880/-/retty/img_ebisu/restaurant/100000029386/archive/695256-5c54315467bdb.jpg" width="100"/>
+        <img className="shop-image" src={ state.logo_image } width="200"/>
         <div className="address">
-          <p>住所：東京都渋谷区</p>
+          <p>住所：{ state.address }</p>
         </div>
         <div classNmae="hours">
-          <p>営業時間：24時間</p>
+          <p>営業時間：{ state.open }</p>
         </div>
       </div>
 

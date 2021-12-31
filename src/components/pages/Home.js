@@ -20,11 +20,9 @@ function Home() {
   }, [isAvailable]);
 
   const getCurrentPosition = () => {
-    console.log("--getCurrentP--")
     navigator.geolocation.getCurrentPosition(position => {
       const { latitude, longitude } = position.coords;
       setPosition({ latitude, longitude });
-      console.log(position)
     });
   };
 
@@ -48,10 +46,8 @@ function Home() {
             </div>
           )}
 
-          <p>現在地： 静岡県浜松市中区城北</p>
-          {/* テスト値：lat=35.669220,lng=139.761457 */}
+          <p>現在地：静岡県浜松市中区城北</p>
           {/* 現在地：lat=34.7205309,lng=137.7218217 */}
-          {/* https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=c64ae792fe1b1ca3&lat=34.7205309&lng=137.7218217&format=json */}
         </div>
       </div>
 
@@ -72,18 +68,13 @@ function Home() {
 
             <div className="saerch-button-wrapper">
 
-              <Link to="/restaurants">検索</Link>
-              {/* <Link to={{
+              <Link to= {{
                 pathname: "/restaurants",
-                state: { radius: radius }
-              }}>検索</Link> */}
-
-              {/* <button onClick={this.handleClik}>検索</button> */}
+                // state: position
+                // テスト用
+                state: { latitude: 34.7205309, longitude: 137.7218217 }
+              }}>検索</Link>
             </div>
-
-            {/* <div className="saerch-button-wrapper">
-              <input type="submit" value="検索" />
-            </div> */}
           </form>
         </div>
       </div>
